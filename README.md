@@ -84,6 +84,9 @@ docker run --rm -p 3000:3000 \
   platform ready to play.
 - **Converters** — album / playlist batch conversion with live progress,
   per-track confidence, and export to TXT / CSV / JSON.
+- **Appearance** — Light, Dark or System on the Settings page; **System is the
+  default**, so the app follows your OS (and your OS changes) until you pin a
+  theme. Applied live, kept in this browser.
 
 ## Limitations
 

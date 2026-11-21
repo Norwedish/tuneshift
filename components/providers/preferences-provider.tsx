@@ -68,6 +68,14 @@ export function PreferencesProvider({ children }: { children: ReactNode }) {
     root.classList.toggle("dark", resolvedTheme === "dark");
     root.style.colorScheme = resolvedTheme;
     root.dataset.reduceMotion = settings.reduceMotion ? "true" : "false";
+
+    // Browser chrome (mobile address bar, overscroll area) reads the media-gated
+    // theme-color tags; paint both with the resolved theme so an override here
+    // still reaches the browser UI.
+    const paper = resolvedTheme === "dark" ? "#12152a" : "#f4f5f8";
+    for (const meta of document.head.querySelectorAll('meta[name="theme-color"]')) {
+      meta.setAttribute("content", paper);
+    }
   }, [resolvedTheme, settings.reduceMotion]);
 
   const setSettings = useCallback((patch: Partial<AppSettings>) => {

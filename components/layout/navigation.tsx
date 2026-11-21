@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { ArrowUpRight, Settings } from "lucide-react";
 import { Wordmark } from "@/components/brand/logo";
 import { useProviderStatus } from "@/components/providers/status-provider";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { StatusDot } from "@/components/ui/badge";
 import { LIBRARY_NAV, PRIMARY_NAV, UTILITY_NAV, type NavItem } from "@/config/navigation";
 import { cn } from "@/lib/utils/cn";
@@ -134,8 +133,6 @@ export function Sidebar() {
           Settings
         </Link>
 
-        <ThemeToggle />
-
         <Link
           href="/setup"
           className="mt-3 flex items-center justify-between px-1 text-[14px] text-faint transition-colors hover:text-muted"
@@ -212,8 +209,7 @@ export function MobileTopBar() {
       <Link href="/" aria-label="TuneShift home">
         <Wordmark size={24} />
       </Link>
-      <div className="flex items-center gap-1.5">
-        <ThemeToggle compact />
+      <div className="flex items-center">
         <Link
           href="/settings"
           aria-label="Settings"

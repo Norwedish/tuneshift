@@ -10,22 +10,8 @@ const OPTIONS = [
   { value: "system", label: "System", icon: Monitor },
 ] as const;
 
-export function ThemeToggle({ compact = false }: { compact?: boolean }) {
+export function ThemeToggle() {
   const { settings, setSettings } = usePreferences();
-
-  if (compact) {
-    const isDark = settings.theme === "dark";
-    return (
-      <button
-        type="button"
-        onClick={() => setSettings({ theme: isDark ? "light" : "dark" })}
-        aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-        className="flex size-9 items-center justify-center rounded-full border border-line bg-surface text-ink-2 shadow-xs transition-colors hover:text-ink"
-      >
-        {isDark ? <Sun className="size-4" aria-hidden /> : <Moon className="size-4" aria-hidden />}
-      </button>
-    );
-  }
 
   return (
     <div
@@ -42,7 +28,7 @@ export function ThemeToggle({ compact = false }: { compact?: boolean }) {
             aria-pressed={active}
             onClick={() => setSettings({ theme: option.value })}
             className={cn(
-              "flex h-8 flex-1 items-center justify-center gap-1.5 rounded-full px-2.5 text-[14px] font-medium transition-all",
+              "flex h-8 flex-1 items-center justify-center gap-1 sm:gap-1.5 rounded-full px-1.5 sm:px-2.5 text-[13px] sm:text-[14px] font-medium transition-all",
               active ? "bg-surface text-ink shadow-sm font-semibold" : "text-muted hover:text-ink-2",
             )}
           >

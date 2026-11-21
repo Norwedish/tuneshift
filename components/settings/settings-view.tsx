@@ -5,8 +5,11 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 
+const THEME_LABEL = { light: "Light", dark: "Dark", system: "System" } as const;
+
 export function SettingsView() {
-  const { settings, setSettings, resetSettings } = usePreferences();
+  const { settings, setSettings, resetSettings, resolvedTheme } = usePreferences();
+  const themeLabel = THEME_LABEL[settings.theme];
 
   const reduceMotion = settings?.reduceMotion ?? false;
   const showExplicit = settings?.showExplicit ?? true;
@@ -27,7 +30,12 @@ export function SettingsView() {
             <div className="min-w-0">
               <h2 className="text-[17px] font-medium text-ink">Appearance</h2>
               <p className="mt-1 text-[15px] leading-relaxed text-muted">
-                Light, dark or follow your system.
+                {settings.theme === "system"
+                  ? "System is the default — you follow your OS, including when you change it."
+                  : `Pinned to ${themeLabel}. Pick System to go back to following your OS.`}
+              </p>
+              <p className="mt-1 font-mono text-[13px] uppercase tracking-[0.1em] text-faint">
+                Selected · {themeLabel} · Now {resolvedTheme}
               </p>
             </div>
             <ThemeToggle />

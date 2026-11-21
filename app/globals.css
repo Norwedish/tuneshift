@@ -320,12 +320,8 @@
     animation: drift 96s ease-in-out infinite;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .grain::before {
-      opacity: 0.9;
-    }
-  }
-
+  /* grain follows the app theme (the `.dark` class), not the OS media query,
+     so a forced Light override stays quiet. */
   .dark .grain::before {
     opacity: 0.9;
   }
