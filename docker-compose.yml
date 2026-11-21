@@ -1,0 +1,29 @@
+services:
+  tuneshift:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tuneshift:latest
+    container_name: tuneshift
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      # Spotify Web API - https://developer.spotify.com/dashboard
+      SPOTIFY_CLIENT_ID: ${SPOTIFY_CLIENT_ID:-}
+      SPOTIFY_CLIENT_SECRET: ${SPOTIFY_CLIENT_SECRET:-}
+      # YouTube Data API v3 - https://console.cloud.google.com/apis/credentials
+      YOUTUBE_API_KEY: ${YOUTUBE_API_KEY:-}
+      TUNESHIFT_CACHE_TTL_SECONDS: ${TUNESHIFT_CACHE_TTL_SECONDS:-300}
+      TUNESHIFT_RATE_LIMIT_PER_MINUTE: ${TUNESHIFT_RATE_LIMIT_PER_MINUTE:-60}
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/api/status').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
